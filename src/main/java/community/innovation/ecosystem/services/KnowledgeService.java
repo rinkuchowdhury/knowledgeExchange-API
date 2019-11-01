@@ -53,6 +53,8 @@ public class KnowledgeService {
     // store knowledge
     public Response storeKnowledge(String title, String description, String knowledgeType, String[] knowledgeMember,
                                    String lookingFor, String status, String affiliation, MultipartFile file, String createdUserId) {
+
+        //  check file size req. needs to be added
         fileName=storeFile(file);
         fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/api/knowledge/files/").path(fileName).toUriString();
