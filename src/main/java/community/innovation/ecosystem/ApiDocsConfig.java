@@ -30,8 +30,8 @@ public class ApiDocsConfig {
 
     private ApiInfo apiDetails() {
         return new ApiInfo(
-                "Knowledge Platform API",
-                "Rest API for Knowledge Platform",
+                "Knowledge Exchange API",
+                "Rest API for Knowledge Exchange Platform",
                 "1.0",
                 "https://www.uni-koblenz-landau.de/", // provide url for terms of service
                  new springfox.documentation.service.Contact("University of Koblenz,Germany","https://www.uni-koblenz-landau.de/","rinkuchowdhury@uni-koblenz.de"),
