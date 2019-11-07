@@ -60,6 +60,7 @@ public class KnowledgeService {
                 .path("/api/knowledge/files/").path(fileName).toUriString();
 
        Knowledge knowledge=new Knowledge(title,description,knowledgeType,knowledgeMember,fileName,fileDownloadUri,lookingFor,status,affiliation);
+       // apply user existing : not yet implemented
        knowledge.setCreatedUser(createdUserId);
        knowledge.setPostedOn(dateTime.format(new Date()));
 
@@ -207,6 +208,5 @@ public class KnowledgeService {
     // get a knowledge
 
     // delete a knowledge
-
 
 }
