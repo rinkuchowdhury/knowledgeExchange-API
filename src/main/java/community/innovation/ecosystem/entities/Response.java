@@ -1,7 +1,13 @@
 package community.innovation.ecosystem.entities;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.stereotype.Component;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Component
 public class Response {
 
@@ -12,9 +18,6 @@ public class Response {
     private String fileType;
     private String fileDownloadUri;
     private long size;
-
-
-    public Response() { }
 
     public Response(String title, String fileName, String fileType, String fileDownloadUri, long size) {
         this.title = title;
@@ -30,33 +33,5 @@ public class Response {
         this.fileDownloadUri = fileDownloadUri;
     }
 
-    public String getId() { return id; }
-
-    public void setId(String id) { this.id = id; }
-
-    public String getUserId() { return userId; }
-
-    public void setUserId(String userId) { this.userId = userId; }
-
-    public String getTitle() { return title; }
-
-    public void setTitle(String title) { this.title = title; }
-
-    public String getFileName() { return fileName; }
-
-    public void setFileName(String fileName) { this.fileName = fileName; }
-
-    public String getFileType() { return fileType; }
-
-    public void setFileType(String fileType) {this.fileType = fileType; }
-
-    public String getFileDownloadUri() { return fileDownloadUri; }
-
-    public void setFileDownloadUri(String fileDownloadUri) { this.fileDownloadUri = fileDownloadUri; }
-
-    public long getSize() { return size; }
-
-    public void setSize(long size) { this.size = size; }
-
-
+   // getters and setters by lombok
 }

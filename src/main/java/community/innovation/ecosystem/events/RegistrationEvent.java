@@ -1,10 +1,14 @@
 package community.innovation.ecosystem.events;
 
 import community.innovation.ecosystem.entities.User;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.context.ApplicationEvent;
 
 import java.util.Locale;
 
+@Getter
+@Setter
 public class RegistrationEvent extends ApplicationEvent {
 
     private static final long SERIAL_VERSION_UID=1L;
@@ -19,15 +23,5 @@ public class RegistrationEvent extends ApplicationEvent {
         this.user = user;
     }
 
-    public String getAppUrl() { return appUrl; }
-
-    public void setAppUrl(String appUrl) { this.appUrl = appUrl; }
-
-    public Locale getLocale() { return locale; }
-
-    public void setLocale(Locale locale) { this.locale = locale; }
-
-    public User getUser() { return user; }
-
-    public void setUser(User user) { this.user = user; }
+    // getters and setters by lombok
 }
