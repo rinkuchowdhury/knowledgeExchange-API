@@ -48,6 +48,8 @@ public class EmailServiceImpl implements EmailService{
     public void sendMailWithVerification(String recipient, String url) {
 
         String subject=emailProperties.getEmailSubject();
+        // following line will/may retrieve the context root. avoid http://localhost:8080/api
+        // ServletUriComponentsBuilder.fromCurrentContextPath().path("/api").path(url).toUriString();
         String text=emailProperties.getEmailMessage()+"\n"+"http://localhost:8080/api"+url;
         this.sendMail(recipient,subject,text);
     }
