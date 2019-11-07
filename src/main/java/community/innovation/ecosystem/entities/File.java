@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
 
+// this class has no impact in terms of current development approach
 @Component
 @Document(collection = "knowledge.file")
 public class File {
