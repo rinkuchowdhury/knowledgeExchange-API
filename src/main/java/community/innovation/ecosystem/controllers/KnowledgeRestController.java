@@ -17,8 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
 
-
-
 @RestController
 @CrossOrigin
 @Api(value = "Knowledge", description = "Available endpoints of this API", tags = {"Knowledge"})

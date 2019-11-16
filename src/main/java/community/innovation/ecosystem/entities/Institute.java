@@ -3,6 +3,7 @@ package community.innovation.ecosystem.entities;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +19,7 @@ public class Institute {
     @Id
     public String instituteId;
 
+    @TextIndexed
     public String instituteName;
     public String instituteType;
     public String instituteAddress;
