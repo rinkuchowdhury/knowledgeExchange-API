@@ -13,7 +13,9 @@ public class Comment {
     @Id
     public String commentId;
 
-    public String comment;
     public String userId;
-    public String commentedOn;
+    public String knowledgeId;
+
+    public String comment;
+    public String postedOn;
 }
