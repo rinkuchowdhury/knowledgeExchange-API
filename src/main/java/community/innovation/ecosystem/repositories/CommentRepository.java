@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CommentRepository extends MongoRepository<Comment, String> {
     Boolean existsByCommentId(String commentId);
+    Comment findByComment(String comment);
+    Comment findByCommentId(String commentId);
 }

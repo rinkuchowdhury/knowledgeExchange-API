@@ -8,6 +8,9 @@ import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.Map;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -31,7 +34,6 @@ public class Knowledge {
     @TextIndexed
     public String fileName;
     public String fileDownloadUri;
-
     public String lookingFor;
     public String status;  // stage: pitch-initial,project: funded
 
@@ -43,6 +45,9 @@ public class Knowledge {
 
     @TextIndexed
     public String affiliation; // example: university of Koblenz
+
+    @TextIndexed
+    public Map<String,String> comment;
 
     public Knowledge(String title, String description, String knowledgeType, String[] knowledgeMember,String fileName, String fileDownloadUri, String lookingFor, String status, String affiliation) {
         this.title = title;

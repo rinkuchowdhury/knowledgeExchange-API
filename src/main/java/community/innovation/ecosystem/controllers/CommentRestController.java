@@ -25,7 +25,7 @@ public class CommentRestController {
 
     @ApiOperation(value="create or edit comment", tags = { "Comment" })
     @PostMapping("/comments")
-    public String createComment(@Valid @RequestBody Comment comment){
+    public String createOrEditComment(@Valid @RequestBody Comment comment){
         return commentService.createOrEditComment(comment);
     }
 
