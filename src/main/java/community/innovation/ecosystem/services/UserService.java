@@ -8,6 +8,7 @@ import community.innovation.ecosystem.repositories.CredentialRepository;
 import community.innovation.ecosystem.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.context.request.WebRequest;
@@ -20,22 +21,20 @@ import java.util.Locale;
 public class UserService {
 
     private UserRepository userRepository;
-
-    @Autowired
     private CredentialRepository credentialRepository;
-
-    @Autowired
     private ApplicationEventPublisher eventPublisher;
-
-    @Autowired
     private TokenService tokenService;
-
+    @Autowired
+    private PasswordEncoder pe;
     //private Logger myLogger = Logger.getLogger(getClass().getName());
 
-    //private PasswordEncoder passwordEncoder;
-
-    public UserService(UserRepository userRepository) {
+    @Autowired
+    public UserService(UserRepository userRepository, CredentialRepository credentialRepository, ApplicationEventPublisher eventPublisher, TokenService tokenService, PasswordEncoder pe) {
         this.userRepository = userRepository;
+        this.credentialRepository = credentialRepository;
+        this.eventPublisher = eventPublisher;
+        this.tokenService = tokenService;
+        this.pe = pe;
     }
 
     //GET all users
@@ -73,7 +72,8 @@ public class UserService {
             // create user's credentials
             Credential credential=new Credential();
             credential.setUsername(newUser.getEmail());
-            credential.setPassword(user.getPassword()); // encrypt the password
+            //credential.setPassword(user.getPassword());
+            credential.setPassword(pe.encode(user.getPassword()));
             credential.setVerification(newUser.getVerification());
 
             // create user and it's credentials
@@ -86,7 +86,7 @@ public class UserService {
                 String appUrl=request.getContextPath();
                 RegistrationEvent event=new RegistrationEvent(appUrl,request.getLocale(),newUser);
                 eventPublisher.publishEvent(event);
-                return "An email has been sent to your email id.";
+                return "An email has been sent to your email.";
                 //myLogger.info("======= inside try block"+ bindingResult+ request + errors);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -97,18 +97,18 @@ public class UserService {
 
             Credential credential=credentialRepository.findByUserId(user.getUserId());
 
-            // if user change the password
-            // need to modify code for email change
-            if(user.getPassword()!=null){
-                credential.setPassword(user.getPassword());// encrypt the password
-                credentialRepository.save(credential);
+            if(credential.getVerification()){
+                // if user change the password
+                // need to modify code for email change
+                if(user.getPassword()!=null){
+                    credential.setPassword(pe.encode(user.getPassword()));
+                    //credential.setPassword(user.getPassword());
+                    credentialRepository.save(credential);
+                }
+                userRepository.save(user);
+                return "Successfully edited.";
             }
-            user.setVerification(credential.getVerification());
-            user.setRole(user.getRole());// set "ROLE_" or input via payload
-            user.setPassword(null);
-            userRepository.save(user);
-
-            return "Successfully edited.";
+            else return "The account still not verified";
         }
         return "This email is exist in the database.";
     }
@@ -169,5 +169,13 @@ public class UserService {
             }
         }
         return "The url is broken. please register again or contact to service desk.";
+    }
+
+    public String verificationStatus(String id) {
+        Boolean status= credentialRepository.findByUserId(id).getVerification();
+        if(status){
+            return "The user account is verified";
+        }
+        return "The user account still not verified";
     }
 }

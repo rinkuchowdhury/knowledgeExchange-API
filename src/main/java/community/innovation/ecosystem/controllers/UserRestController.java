@@ -4,9 +4,12 @@ import community.innovation.ecosystem.entities.User;
 import community.innovation.ecosystem.services.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 import javax.xml.bind.ValidationException;
@@ -20,6 +23,7 @@ public class UserRestController {
 
     private UserService userService;
 
+    @Autowired
     public UserRestController(UserService userService) {
         this.userService = userService;
     }
@@ -38,9 +42,9 @@ public class UserRestController {
 
     // if email doesn't exist and no userId given then registration : create user
     // if userId given then edit user data
-    @ApiOperation(value="Add or edit user", tags = { "User" })
+    @ApiOperation(value="Add or edit user. Please use \"ROLE_xxx\"  instead {ROLE_xxx} inside role payload", tags = { "User" })
     @PostMapping("/users")
-    public String createOrUpdateUser(@Valid @RequestBody User user, BindingResult result, WebRequest request,Error error) throws ValidationException {
+    public String createOrUpdateUser(@Valid @RequestBody User user, @ApiIgnore BindingResult result, @ApiIgnore WebRequest request, @ApiIgnore Error error) throws ValidationException {
         return userService.createOrUpdateUser(user,result,request,error);
     }
 
@@ -53,7 +57,13 @@ public class UserRestController {
 
     @ApiOperation(value="User registration confirmation", tags = { "User" })
     @GetMapping("/confirmRegistration")
-    public String confirmRegistration(WebRequest request,@RequestParam("token") String verificationToken){
+    public String confirmRegistration(@ApiIgnore WebRequest request, @RequestParam("token") String verificationToken){
         return userService.activateUser(request,verificationToken);
+    }
+
+    @ApiOperation(value="User verification status", tags = { "User" })
+    @GetMapping("/verificationStatus/{id}")
+    public String verificationStatus(@PathVariable ("id") String id){
+        return userService.verificationStatus(id);
     }
 }
