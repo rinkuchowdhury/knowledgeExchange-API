@@ -1,4 +1,4 @@
-package community.innovation.ecosystem.entities;
+package community.innovation.ecosystem.security;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

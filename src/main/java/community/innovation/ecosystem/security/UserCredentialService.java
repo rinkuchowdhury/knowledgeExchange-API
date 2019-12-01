@@ -1,7 +1,6 @@
-package community.innovation.ecosystem.services;
+package community.innovation.ecosystem.security;
 
 import community.innovation.ecosystem.entities.Credential;
-import community.innovation.ecosystem.entities.UserCredentials;
 import community.innovation.ecosystem.repositories.CredentialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
