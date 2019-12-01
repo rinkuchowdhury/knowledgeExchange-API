@@ -1,4 +1,4 @@
-package community.innovation.ecosystem;
+package community.innovation.ecosystem.configs;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
