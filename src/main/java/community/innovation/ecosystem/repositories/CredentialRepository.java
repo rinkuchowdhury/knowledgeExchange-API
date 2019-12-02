@@ -11,4 +11,5 @@ public interface CredentialRepository extends MongoRepository<Credential,String>
     Credential findByUsername(String username);
     Credential findByUserId(String id);
     Long deleteByUserId(String id);
+    Boolean existsByUsername(String demoUser);
 }
