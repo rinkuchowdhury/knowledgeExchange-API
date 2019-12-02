@@ -6,6 +6,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -50,8 +51,10 @@ public class EmailServiceImpl implements EmailService{
         String subject=emailProperties.getEmailSubject();
         // following line will/may retrieve the context root. avoid http://localhost:8080/api
         // ServletUriComponentsBuilder.fromCurrentContextPath().path("/api").path(url).toUriString();
-        String text=emailProperties.getEmailMessage()+"\n"+"http://localhost:8080/api"+url;
-        this.sendMail(recipient,subject,text);
+        String contextPath= ServletUriComponentsBuilder.fromCurrentContextPath().path("/api").toUriString();
+        String fullPath=contextPath+url;
+        //String text=emailProperties.getEmailMessage()+"\n"+"http://localhost:8080/api"+url;
+        this.sendMail(recipient,subject,fullPath);
     }
 
     //sendMailWithAttachment()
