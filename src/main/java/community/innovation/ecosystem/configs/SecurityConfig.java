@@ -1,6 +1,6 @@
 package community.innovation.ecosystem.configs;
 
-import community.innovation.ecosystem.services.UserCredentialService;
+import community.innovation.ecosystem.security.UserCredentialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
