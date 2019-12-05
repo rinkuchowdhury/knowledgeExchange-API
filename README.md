@@ -18,9 +18,6 @@ Here focused on Back-end development where consumers can consume API's endpoints
 1. Clone the repo
 2. .....
 
-## Contributor
-1. Rinku Kanti Chowdhury - Backend Developer
-
 ## Acknowledgements
  - DR. Harald Fo Von Korflesch
  - Christoph Jöcker
