@@ -37,6 +37,7 @@ public class KnowledgeRestController {
     public Response createKnowledge(@RequestParam("title") String title,
                                     @RequestParam("description") String description,
                                     @RequestParam("knowledgeType") String knowledgeType,
+                                    @ApiParam("current contributors: userId")
                                     @RequestParam("knowledgeMember") String[] knowledgeMember,
                                     @RequestParam("lookingFor") String lookingFor,
                                     @RequestParam("status") String status,
