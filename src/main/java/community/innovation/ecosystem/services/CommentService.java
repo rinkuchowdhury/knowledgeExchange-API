@@ -26,32 +26,31 @@ public class CommentService {
     public String createOrEditComment(Comment comment) {
 
         String status;
-        String commentId= comment.getCommentId();
-        String knowledgeId= comment.getKnowledgeId();
-        Boolean knowledgeIdExist=knowledgeRepository.existsById(knowledgeId);
-        Knowledge knowledge;
+        String commentId=comment.getCommentId();
+        Boolean knowledgeIdExist=knowledgeRepository.existsById(comment.getKnowledgeId());
         if(!knowledgeIdExist) status = "Error: The given knowledgeId does not exist";
-        else{
+        else {
             comment.setPostedOn(dateTime.format(new Date()));
-            if(commentId!=null){
-                commentExist=commentRepository.existsByCommentId(commentId);
-                if(commentExist){
-                    commentRepository.save(comment);
-                    status= "Successfully edited";
-                }
-                else status= "The id is not available in the portal";
+
+            // create comment
+            if (commentId == null || commentId.isEmpty()) {
+                Comment comment1 = commentRepository.save(comment);
+
+                // add comment into knowledge
+                addCommentInKnowledge(comment.getKnowledgeId(), comment1.getCommentId(), comment1.getComment());
+
+                status = "Successfully added id: " + comment1.getCommentId();
             }
-            else{
+
+            // edit comment
+            else {
                 commentRepository.save(comment);
-                commentId=commentRepository.findByComment(comment.getComment()).getCommentId();
-                status= "Successfully added";
+
+                // add comment into knowledge
+                addCommentInKnowledge(comment.getKnowledgeId(), comment.getCommentId(), comment.getComment());
+
+                status = "Successfully edited id: " + commentId;
             }
-            knowledge= knowledgeRepository.findByKnowledgeId(knowledgeId);
-            Map<String,String> addComment=knowledge.getComment();
-            addComment.put(commentId,comment.getComment());
-            knowledge.setComment(addComment);
-            knowledgeRepository.save(knowledge);
-            status= status+ " and also inserted into Knowledge";
         }
         return status;
     }
@@ -83,5 +82,19 @@ public class CommentService {
             commentRepository.deleteById(commentId);
             return "The id: "+commentId+" related information has been deleted";
         }
+    }
+
+    public void addCommentInKnowledge(String knowledgeId,String commentId,String comment){
+        Map<String,String> addComment;
+        Knowledge knowledge=knowledgeRepository.findByKnowledgeId(knowledgeId);
+        if(knowledge.getComment()==null){
+            addComment = new HashMap<>();
+        }
+        else{
+            addComment=knowledge.getComment();
+        }
+        addComment.put(commentId,comment);
+        knowledge.setComment(addComment);
+        knowledgeRepository.save(knowledge);
     }
 }
