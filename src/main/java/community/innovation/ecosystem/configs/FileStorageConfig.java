@@ -1,11 +1,11 @@
-package community.innovation.ecosystem.services;
+package community.innovation.ecosystem.configs;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 
-@Component
+@Configuration
 @ConfigurationProperties(prefix="file") // binds all the properties with prefix "file" to the corresponding fields of the POJO class.
-public class FileStorageProperties {
+public class FileStorageConfig {
 
     private String uploadDir;
 

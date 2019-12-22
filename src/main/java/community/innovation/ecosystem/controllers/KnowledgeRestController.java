@@ -2,6 +2,7 @@ package community.innovation.ecosystem.controllers;
 
 import community.innovation.ecosystem.entities.Knowledge;
 import community.innovation.ecosystem.entities.Response;
+import community.innovation.ecosystem.services.FileHandlingService;
 import community.innovation.ecosystem.services.KnowledgeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,9 +28,11 @@ public class KnowledgeRestController {
     private static final Logger logger = LoggerFactory.getLogger(KnowledgeRestController.class);
 
     private KnowledgeService knowledgeService;
+    private FileHandlingService fileHandlingService;
 
-    public KnowledgeRestController(KnowledgeService knowledgeService) {
+    public KnowledgeRestController(KnowledgeService knowledgeService,FileHandlingService fileHandlingService) {
         this.knowledgeService = knowledgeService;
+        this.fileHandlingService=fileHandlingService;
     }
 
     // create knowledge entry
@@ -92,7 +95,7 @@ public class KnowledgeRestController {
     @GetMapping("/knowledge/files/{fileName:.+}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request){
         // load file as Resource
-        Resource resource= knowledgeService.loadFileAsResource(fileName);
+        Resource resource= fileHandlingService.loadFileAsResource(fileName);
 
         // Try to determine file's content type
         String contentType = null;
@@ -122,5 +125,4 @@ public class KnowledgeRestController {
     public String deleteKnowledge(@PathVariable ("id") String knowledgeId){
         return knowledgeService.deleteKnowledge(knowledgeId);
     }
-
 }
