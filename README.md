@@ -20,7 +20,13 @@ Here focused on Back-end development where consumers can consume API's endpoints
 ## Running Locally
 
 1. Clone the repo
-2. .....
+###### below instructions to run both in local or in production environment
+2. To run outside of IDE, do maven package to run fat jar. 
+    Command:
+        ./mvnw spring-boot:run (Linux)
+        mvnw spring-boot:run (windows)
+3. jar file run command: java -jar theJarFile.jar
+4. To run on the dedicated server, use .war file. Simply deploy the .war file in the server.
 
 ## Acknowledgements
  - DR. Harald Fo Von Korflesch
