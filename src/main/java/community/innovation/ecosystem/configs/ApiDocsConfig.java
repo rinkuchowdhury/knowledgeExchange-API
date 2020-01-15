@@ -34,7 +34,7 @@ public class ApiDocsConfig {
                 "Rest API for Knowledge Exchange Platform",
                 "1.0",
                 "https://www.uni-koblenz-landau.de/", // provide url for terms of service
-                 new springfox.documentation.service.Contact("University of Koblenz,Germany","https://www.uni-koblenz-landau.de/","rinkuchowdhury@uni-koblenz.de"),
+                 new springfox.documentation.service.Contact("InnoEco","https://www.uni-koblenz-landau.de/","rinkuchowdhury@uni-koblenz.de"),
                 "API License", "https://www.uni-koblenz-landau.de/",
                  Collections.emptyList());
     }
