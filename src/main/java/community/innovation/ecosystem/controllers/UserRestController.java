@@ -1,6 +1,7 @@
 package community.innovation.ecosystem.controllers;
 
 import community.innovation.ecosystem.entities.User;
+import community.innovation.ecosystem.services.CredentialService;
 import community.innovation.ecosystem.services.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -21,10 +22,12 @@ import java.util.List;
 public class UserRestController {
 
     private UserService userService;
+    private CredentialService credentialService;
 
     @Autowired
-    public UserRestController(UserService userService) {
+    public UserRestController(UserService userService, CredentialService credentialService) {
         this.userService = userService;
+        this.credentialService=credentialService;
     }
 
     @ApiOperation(value="Get all user", tags = { "User" })
@@ -64,5 +67,11 @@ public class UserRestController {
     @GetMapping("/verificationStatus/{id}")
     public String verificationStatus(@PathVariable ("id") String id){
         return userService.verificationStatus(id);
+    }
+
+    @ApiOperation(value="User login", tags = { "User" })
+    @GetMapping ("/login")
+    public String login(@RequestParam("username") String username, @RequestParam ("password") String password){
+         return credentialService.login(username,password);
     }
 }
